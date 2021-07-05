@@ -1,0 +1,256 @@
+*{
+    margin:0;
+    padding:0;
+}
+
+.aqua2{
+    height:100vh;
+    width: 100%;
+    background-image: url(/public/Image/bg3.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.aqua{
+    height:100vh;
+    width: 100%;
+    background-image: url(/public/Image/background.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.aqua1{
+    height:100vh;
+    width: 100%;
+    background-image: url(/public/Image/bg2.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.fish{
+    height:100px;
+    width:380px;
+  
+    background-size:contain;
+    background-repeat: no-repeat;
+
+}
+.txtarea{
+    position: absolute;
+    top: 85%;
+    left: 30%;
+    font-family: 'Lobster', cursive;
+    font-size:40px;
+    padding: 12px 24px;
+}
+.text1{
+    position: absolute;
+    top: 10%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    color:rgb(1, 2, 2);
+    font-family: 'Lobster', cursive;
+    font-size:40px;
+    padding: 12px 24px;
+}
+.text2{
+    position: absolute;
+    top: 20%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    color:rgb(1, 2, 2);
+    font-family: 'Lobster', cursive;
+    font-size:30px;
+    padding: 12px 24px;
+}
+.text{
+    position: absolute;
+    text-align: center;
+    top: 45%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    color:black;
+    font-family: 'Lobster', cursive;
+    font-size:60px;
+    padding: 12px 24px;
+    text-shadow: 2px 2px;
+}
+.block1{
+    position:absolute;
+    height: 300px;
+    width:250px;
+    background-color:#FFE4B5;
+    top:30%;
+    left:10%;
+    border-radius: 5%;
+    text-align: center;
+}
+.block2{
+    position:absolute;
+    height: 300px;
+    width:250px;
+    background-color:#FFFACD;
+    top:30%;
+    left:30%;
+    border-radius: 5%;
+    text-align: center;
+}
+
+.block3{
+    position:absolute;
+    height: 300px;
+    width:250px;
+    background-color:#FFE4B5;
+    top:30%;
+    left:50%;
+    border-radius: 5%;
+    text-align: center;
+}
+
+.block4{
+    position:absolute;
+    height: 300px;
+    width:250px;
+    background-color:#FFFACD;
+    top:30%;
+    left:70%;
+    border-radius: 5%;
+    text-align: center;
+}
+.bubble{
+    width:100%;
+    display:flex;
+    align-items:center;
+    justify-content:space-around;
+    position:absolute;
+    bottom:-20px;
+}
+.bubble img{
+    width:62px;
+    animation:bubble 4s linear infinite;
+}
+@keyframes bubble{
+    0%{
+        transform:translateY(0);
+        opacity:0;
+    }
+    50%{
+        opacity:1;
+    }
+    71%{
+        opacity:1;
+    }
+    100% {transform:translateY(-85vh);
+        opacity:0;}
+
+}
+.bubble img:nth-child(1){
+    animation-delay: 1s;
+    width:50px;
+}
+.bubble img:nth-child(2){
+    animation-delay: 3s;
+    width:30px;
+}
+.bubble img:nth-child(3){
+    animation-delay: 5s;
+    width:10px;
+}
+.bubble img:nth-child(4){
+    animation-delay: 7s;
+    width:40px;
+}
+.bubble img:nth-child(5){
+    animation-delay: 6s;
+    width:20px;
+}
+.bubble img:nth-child(6){
+    animation-delay: 2s;
+    width:60px;
+}
+.bubble img:last-child{
+    animation-delay: 4s;
+    width:30px;
+}
+.my-button{
+    position: absolute;
+    top: 45%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    background-color:aqua;
+    color:black;
+    font-family: 'Lobster', cursive;
+    font-size:30px;
+    padding: 12px 24px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    transition-duration: 0.4s;
+}
+.my-button-1{
+    position: absolute;
+    top: 65%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    background-color:aqua;
+    color:black;
+    font-family: 'Lobster', cursive;
+    font-size: 30px;
+    padding: 12px 24px;
+    border: none;
+    cursor: pointer;
+    border-radius: 50px;
+}
+.my-button-2{
+    position: absolute;
+    top: 80%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    background-color:aqua;
+    font-size: 30px;
+    color:black;
+    font-family: 'Lobster', cursive;
+    padding: 12px 24px;
+    border: none;
+    cursor: pointer;
+    border-radius: 50px;
+}
+
+.my-button-3{
+    position: absolute;
+    top: 85%;
+    left: 40%;
+    transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    background-color:rgb(72, 153, 245);
+    font-size: 30px;
+    color:black;
+    font-family: 'Lobster', cursive;
+    padding: 12px 24px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.my-button-4{
+    position: absolute;
+    top: 85%;
+    left: 60%;
+    transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    background-color:rgb(72, 153, 245);
+    font-size: 30px;
+    color:black;
+    font-family: 'Lobster', cursive;
+    padding: 12px 24px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+}
+.my-button:hover,.my-button-1:hover,.my-button-2:hover,.my-button-3:hover,.my-button-4:hover{
+    background-color: #1537a8;
+  color: white;
+}
