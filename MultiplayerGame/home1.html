@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catchy Fishes</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="stylesheet" href="/public/css/style.css">
+    <canvas id="canvas"></canvas>
+    <style>
+        #gamescreen{
+            display:none;
+        }
+        #canvas{
+            display:none;
+        position:absolute;
+        height: 350px;
+        width:600px;
+        background-color:#FFE4B5;
+        top:30%;
+        left:30%;
+        border-radius: 5%;
+        border: 1px solid;
+        text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div id="initialscreen" class="h-100">
+            <div class="text">
+                <h1>CATCHY FISHES</h1>
+            </div>
+            <div class="aqua">
+                <div class="bubble">
+                    <img src="/public/Image/bub.png">
+                    <img src="/public/Image/bub.png">
+                    <img src="/public/Image/bub.png">
+                    <img src="/public/Image/bub.png">
+                    <img src="/public/Image/bub.png">
+                    <img src="/public/Image/bub.png">
+                </div>
+            </div>
+            <button id='btnCreate' class="my-button-1">New Game</button>
+            <button id='btnJoin' class="my-button-2">Join Game</button>
+            <input type = 'text'class="txtarea" id = 'txtGameId'>
+            <div id  = 'divPlayers'></div>
+        </div>
+        <div id="gamescreen" class="h-100">
+            <div class="text1">
+                <h1>CATCHY FISHES</h1>
+            </div>
+            <div class="text2">
+                <h2>SCORE CARD</h2>
+            </div>
+            <div class="aqua1">
+                <div class="bubble">
+                    <img src="/public/Image/bub.png">
+                    <img src="/public/Image/bub.png">
+                    <img src="/public/Image/bub.png">
+                    <img src="/public/Image/bub.png">
+                    <img src="/public/Image/bub.png">
+                    <img src="/public/Image/bub.png">
+                </div>
+                <button id="Fish1" class="my-button-3">Catch 1 Fish </button>
+                <button id="Fish2" class="my-button-4" >Catch 2 Fish</button>
+            </div>
+        </div>
+    </div>  
+    <script>
+         var link = document.createElement('link'); 
+  
+  // set the attributes for link element
+    //     link.rel = 'stylesheet'; 
+
+      //   link.type = 'text/css';
+
+        //link.href = 'style.css'; 
+        //HTML elements
+        let clientId = null;
+        let gameId = null;
+        let j=5;
+        let tscore=0;
+        let FishNos=0;
+        let FishiNos=0;
+        //let playerColor = null;
+
+
+        let ws = new WebSocket("ws://localhost:3000")
+        
+        const gamescreen=document.getElementById('gamescreen');
+        const Canvas=document.getElementById('canvas');
+        const initialscreen=document.getElementById('initialscreen');
+        const btnCreate = document.getElementById("btnCreate");
+        const btnJoin = document.getElementById("btnJoin");
+        const txtGameId = document.getElementById("txtGameId");
+        const divPlayers = document.getElementById("divPlayers");
+        const fish1=document.getElementById("Fish1");
+        const fish2=document.getElementById("Fish2");
+       // const divBoard = document.getElementById("divBoard");
+        //wiring events
+        btnCreate.addEventListener("click", e => {
+            const payLoad = {
+            "method": "create",
+            "clientId": clientId
+            }
+
+            ws.send(JSON.stringify(payLoad));
+
+        })
+        btnJoin.addEventListener("click", e => {
+
+            if (gameId === null)
+                gameId = txtGameId.value;
+            
+            const payLoad = {
+                "method": "join",
+                "clientId": clientId,
+                "gameId": gameId
+            }
+
+            ws.send(JSON.stringify(payLoad));
+
+        })
+        var canvas;
+        var context;
+        function texty(txt,fnt,x,y,c){
+            canvas=document.getElementById("canvas");
+            context=canvas.getContext('2d')
+            context.fillStyle=c;
+            context.font=fnt;
+            context.fillText(txt,x,y)
+        }
+       
+
+        ws.onmessage = message => {
+            //message.data
+            const response = JSON.parse(message.data);
+            console.log(response);
+            //connect
+            
+            if (response.method === "connect"){
+                clientId = response.clientId;
+                console.log("Client id Set successfully " + clientId)
+            }
+
+            //create
+            if (response.method === "create"){
+                gameId = response.game.id;
+                console.log("game successfully created with id " + response.game.id )  
+            }
+
+
+            //update
+           /*
+                if (!response.game.state) return;
+                for(const b of Object.keys(response.game.state))
+                {
+                    const color = response.game.state[b];
+                    const ballObject = document.getElementById("ball" + b);
+                    ballObject.style.backgroundColor = color
+                }
+
+            }*/
+            //join
+            if (response.method === "join"){
+                const game = response.game;
+
+                while(divPlayers.firstChild)
+                    divPlayers.removeChild (divPlayers.firstChild)
+                var a=0;
+                game.clients.forEach (c => {
+                    a=a+1;
+                    const d = document.createElement("div");
+                    d.style.width = "200px";
+                    d.style.background = c.color
+                   // d.textContent = c.clientId;
+                    d.textContent="Player Ready";
+                    divPlayers.appendChild(d);
+
+                    if (c.clientId === clientId) playerColor = c.color;
+                    if(a==4){
+                        initialscreen.style.display="none";
+                        gamescreen.style.display='block';
+                        Canvas.style.display='block';
+                        init();
+                    }
+                })
+                function init(){
+                  //  let FishNo=null;
+                   // let FishiNo=null;
+                    //wiring events
+                    fish1.addEventListener("click", e => {
+                    console.log("Ya man i am being pressed");
+                   //  console.log(FishNo);
+                     const payLoad = {
+                                "method": "play",
+                                "clientId": clientId,
+                                "gameId": gameId,
+                                "FishNo": 1,
+                                "FishiNo":0,
+                                "color": playerColor
+                        }
+                        ws.send(JSON.stringify(payLoad))   
+                    })
+                    fish2.addEventListener("click", e => {
+                    console.log("Ya woman i am being pressed");
+                   //  console.log(FishNo);
+                     const payLoad = {
+                                "method": "play",
+                                "clientId": clientId,
+                                "gameId": gameId,
+                                "FishNo": 0,
+                                "FishiNo":1,
+                                "color": playerColor
+                        }
+                        ws.send(JSON.stringify(payLoad))   
+                    })
+                    
+                   /* fish2.addEventListener("click",e=>{
+                       FishNo=0;
+                       FishiNo=1;
+                       console.log(FishNo);
+                    })*/
+                                                
+                }
+            }
+            if (response.method === "update"){
+                //{1: "red", 1}
+                let i=1;
+                while(i<=9){
+                const fscore=response.fscore;
+                const hscore=response.score;
+                const gscore=response.score1;
+                const round=response.round;
+              //  const fishno=response.FishNo;
+               // const fishino=response.FishiNo;
+                if(round==i)
+                 display(fscore,gscore,hscore,i);
+                 i++;
+                }
+            }
+               // const block1 = document.getElementById("block1");
+              //  block1.style.backgroundColor = color;
+           
+            function display(fscore,gscore,hscore,i){
+                //fish=document.getElementById('Fish1');
+                fish1.addEventListener("click", e => {
+                   
+                    FishNos=1;
+                    FishiNos=0;  
+                  })
+              fish2.addEventListener("click", e => {
+                      
+                   FishNos=0;
+                   FishiNos=1; 
+                  })
+                if(i>7){
+                    gscore=gscore*10;
+                    hscore=hscore*10;
+                }
+                    //1FishCount Score
+                    if(FishNos==1){
+                texty('Round'+(i-1)+'Score:'+(gscore),'15px Comic Sans MS',85,j,'black');
+                 tscore+=gscore;
+                FishNos=0;
+                }
+                if(FishiNos==1){
+                    //2FishCount Score
+              texty('Round'+(i-1)+'Score:'+Math.floor(hscore),'15px Comic Sans MS',85,j,'black');
+                tscore+=hscore;
+                FishiNos=0;}
+                j+=15;
+                if(i==9){
+                texty('Total Score:'+(tscore),'20px Comic Sans MS',85,150,'black');
+                const payLoad = {
+                                "method": "finalresult",
+                                "gameId":gameId,
+                                "clientId": clientId,
+                                "color": playerColor,
+                                "tscore":tscore
+                        }
+                        ws.send(JSON.stringify(payLoad))   
+            }        
+       }
+       if (response.method === "gameover"){
+                
+              //  const tscore=response.tscore;
+                const maxy=response.maxy;
+              /*  if(tscore==maxy){
+                    console.log("Congractulations You won");
+                }
+                else{
+                    console.log("You lost");
+                }
+                }*/
+                console.log("GameOver");
+                console.log("Player with total score of :"+maxy+"is the winner");
+            }
+            }
+    </script>
+</body>
+</html>
