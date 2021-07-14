@@ -1,0 +1,20 @@
+1)There will be total of 8 rounds
+2)4 player can play the game at a time
+3)You can catch either 2 fish or 1 fish
+
+Score Card-
+
+
+                Player1     Player2    Player 3  player 4
+   Fishes-      2fish       2fish     2 fish    2fish
+   Score-         -25         -25       -25      -25
+   Fishes-      2fish       1fish     1 fish    1fish
+   Score-         75         0         0          0
+   Fishes-      2fish       2fish     1 fish    1fish
+   Score-        50          50       -12.5     -12.5
+   Fishes-      2fish       2fish     2 fish    1fish
+   Score-         25         25         25      -25
+   
+   
+   So in this way you will be scored
+          
